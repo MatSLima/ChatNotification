@@ -1,4 +1,4 @@
-package com.chat.matheus.chatnotification;
+package com.chat.matheus.chatnotification.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chat.matheus.chatnotification.util.HttpConnector;
+import com.chat.matheus.chatnotification.R;
 import com.chat.matheus.chatnotification.model.entity.Chat;
 import com.chat.matheus.chatnotification.model.entity.Message;
 import com.chat.matheus.chatnotification.model.entity.User;

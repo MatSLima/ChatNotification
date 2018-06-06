@@ -1,4 +1,4 @@
-package com.chat.matheus.chatnotification;
+package com.chat.matheus.chatnotification.util;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

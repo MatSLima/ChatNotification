@@ -1,4 +1,4 @@
-package com.chat.matheus.chatnotification;
+package com.chat.matheus.chatnotification.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.chat.matheus.chatnotification.util.HttpConnector;
+import com.chat.matheus.chatnotification.util.JsonDateDeserializer;
+import com.chat.matheus.chatnotification.R;
 import com.chat.matheus.chatnotification.model.entity.Chat;
 import com.chat.matheus.chatnotification.model.entity.User;
 import com.google.gson.Gson;
