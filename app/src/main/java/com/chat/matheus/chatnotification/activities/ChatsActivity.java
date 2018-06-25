@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.chat.matheus.chatnotification.Configuration;
 import com.chat.matheus.chatnotification.util.HttpConnector;
 import com.chat.matheus.chatnotification.util.JsonDateDeserializer;
 import com.chat.matheus.chatnotification.R;
@@ -55,7 +56,7 @@ public class ChatsActivity extends AppCompatActivity {
         Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDateDeserializer()).create();
         String json = gson.toJson(user);
 
-        String jsonDeResposta = HttpConnector.connect("http://172.28.4.92:8080/r8api/v1/api/chat", json);
+        String jsonDeResposta = HttpConnector.connect(Configuration.SERVER_IP + "/v1/api/chat", json);
         Chat[] cArray = gson.fromJson(jsonDeResposta, Chat[].class);
         List<Chat> chats = new ArrayList<>(Arrays.asList(cArray));
 

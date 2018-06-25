@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.aluno.myapplication.ChatsActivity">
+    tools:context="com.chat.matheus.chatnotification.activities.ChatsActivity">
 
     <LinearLayout
         android:layout_width="368dp"
@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Minhas Conversas"
+                android:text="@string/myChats"
                 android:textSize="20dp"/>
 
             <Button
@@ -34,7 +34,7 @@
                 android:layout_weight="1"
                 android:width="10dp"
                 android:onClick="adicionar"
-                android:text="Add" />
+                android:text="@string/add" />
         </LinearLayout>
 
         <ListView

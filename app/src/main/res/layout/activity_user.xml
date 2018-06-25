@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.aluno.myapplication.UserActivity">
+    tools:context="com.chat.matheus.chatnotification.activities.UserActivity">
 
     <LinearLayout
         android:layout_width="368dp"
@@ -18,7 +18,7 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cadastrar Usuário"
+            android:text="@string/insertUser"
             android:textSize="20dp"
             android:gravity="center"/>
 
@@ -29,7 +29,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="Login"
+            android:hint="@string/login"
             android:inputType="textPersonName" />
 
         <EditText
@@ -39,7 +39,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="Senha"
+            android:hint="@string/password"
             android:inputType="textPersonName" />
 
         <EditText
@@ -49,7 +49,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="Confirme sua senha"
+            android:hint="@string/confirmPassword"
             android:inputType="textPersonName" />
 
         <Button
@@ -59,6 +59,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:onClick="salvar"
-            android:text="Salvar" />
+            android:text="@string/save" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -13,6 +13,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chat.matheus.chatnotification.Configuration;
 import com.chat.matheus.chatnotification.util.HttpConnector;
 import com.chat.matheus.chatnotification.R;
 import com.chat.matheus.chatnotification.model.entity.Chat;
@@ -82,12 +83,12 @@ public class MessageActivity extends AppCompatActivity {
         String json = gson.toJson(userChat);
 
         try {
-            String jsonDeResposta = HttpConnector.connect("http://172.28.4.92:8080/r8api/v1/api/user/chat", json);
+            String jsonDeResposta = HttpConnector.connect(Configuration.SERVER_IP + "/v1/api/user/chat", json);
             JSONObject obj = new JSONObject(jsonDeResposta);
             userChat.setId((Integer) obj.get("id"));
 
             json = gson.toJson(this.chat);
-            jsonDeResposta = HttpConnector.connect("http://172.28.4.92:8080/r8api/v1/api/message/messages", json);
+            jsonDeResposta = HttpConnector.connect(Configuration.SERVER_IP + "/v1/api/message/messages", json);
             Message[] cArray = gson.fromJson(jsonDeResposta, Message[].class);
             List<Message> messages = new ArrayList<>(Arrays.asList(cArray));
 
@@ -104,7 +105,7 @@ public class MessageActivity extends AppCompatActivity {
 
         //THREAD DE NOTIFICAÇÕES
         try {
-            cliente = new Socket("172.28.4.92", 12345);
+            cliente = new Socket("172.28.5.67", 12345);
             System.out.println("O cliente se conectou ao servidor!");
 
             workingthread = new JobThread(mHandler);
@@ -169,7 +170,7 @@ public class MessageActivity extends AppCompatActivity {
             Gson gson = new Gson();
             String json = gson.toJson(m);
             System.out.println("JSON: " + json);
-            String jsonDeResposta = HttpConnector.connect("http://172.28.4.92:8080/r8api/v1/api/message", json);
+            String jsonDeResposta = HttpConnector.connect(Configuration.SERVER_IP + "/v1/api/message", json);
             System.out.println(jsonDeResposta);
             message.setText("");
         }

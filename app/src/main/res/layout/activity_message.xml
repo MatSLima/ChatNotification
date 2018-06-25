@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.aluno.myapplication.MessageActivity">
+    tools:context="com.chat.matheus.chatnotification.activities.MessageActivity">
 
     <LinearLayout
         android:layout_width="368dp"
@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Mensagens do chat"
+                android:text="@string/messages"
                 android:textSize="20dp"/>
 
             <Button
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="adicionar"
-                android:text="add" />
+                android:text="@string/add" />
         </LinearLayout>
 
         <ScrollView
