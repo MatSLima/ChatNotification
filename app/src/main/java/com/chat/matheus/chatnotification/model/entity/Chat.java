@@ -1,14 +1,29 @@
 package com.chat.matheus.chatnotification.model.entity;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+@DatabaseTable
 public class Chat implements Serializable {
+    @DatabaseField(allowGeneratedIdInsert = true, generatedId = true)
     private int id;
+
+    @DatabaseField
     private String name;
+
+    @DatabaseField
     private Date createdAt;
+
+    @ForeignCollectionField(eager = true)
+    private Collection<User> listaUsers;
+
     private List<User> users;
 
     public Chat() {
@@ -46,6 +61,14 @@ public class Chat implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Collection<User> getListaUsers() {
+        return listaUsers;
+    }
+
+    public void setListaUsers(Collection<User> listaUsers) {
+        this.listaUsers = listaUsers;
     }
 
     @Override
