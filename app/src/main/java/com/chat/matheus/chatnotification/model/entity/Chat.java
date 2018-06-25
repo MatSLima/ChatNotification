@@ -22,7 +22,7 @@ public class Chat implements Serializable {
     private Date createdAt;
 
     @ForeignCollectionField(eager = true)
-    private Collection<User> listaUsers;
+    private Collection<UserChat> listaUsers;
 
     private List<User> users;
 
@@ -63,11 +63,11 @@ public class Chat implements Serializable {
         this.name = name;
     }
 
-    public Collection<User> getListaUsers() {
+    public Collection<UserChat> getListaUsers() {
         return listaUsers;
     }
 
-    public void setListaUsers(Collection<User> listaUsers) {
+    public void setListaUsers(Collection<UserChat> listaUsers) {
         this.listaUsers = listaUsers;
     }
 

@@ -21,7 +21,7 @@ public class User implements Serializable {
     private String senha;
 
     @ForeignCollectionField(eager = true)
-    private Collection<Chat> listaChats;
+    private Collection<UserChat> listaChats;
 
     private List<Chat> chats;
 
@@ -61,11 +61,11 @@ public class User implements Serializable {
         this.chats = chats;
     }
 
-    public Collection<Chat> getListaChats() {
+    public Collection<UserChat> getListaChats() {
         return listaChats;
     }
 
-    public void setListaChats(Collection<Chat> listaChats) {
+    public void setListaChats(Collection<UserChat> listaChats) {
         this.listaChats = listaChats;
     }
 
