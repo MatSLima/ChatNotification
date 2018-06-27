@@ -5,15 +5,11 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
-@DatabaseTable
 public class Message implements Serializable {
-    @DatabaseField(allowGeneratedIdInsert = true, generatedId = true)
     private int id;
 
-    @DatabaseField(foreign = true, foreignAutoRefresh = true)
     private UserChat userChat;
 
-    @DatabaseField
     private String message;
 
     public Message() {

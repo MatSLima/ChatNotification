@@ -1,31 +1,29 @@
 package com.chat.matheus.chatnotification.activities;
 
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.chat.matheus.chatnotification.Configuration;
-import com.chat.matheus.chatnotification.model.dao.MyORMLiteHelper;
-import com.chat.matheus.chatnotification.model.entity.UserChat;
-import com.chat.matheus.chatnotification.util.HttpConnector;
-import com.chat.matheus.chatnotification.util.JsonDateDeserializer;
 import com.chat.matheus.chatnotification.R;
+import com.chat.matheus.chatnotification.adapters.AdapterChat;
+import com.chat.matheus.chatnotification.model.dao.MyORMLiteHelper;
 import com.chat.matheus.chatnotification.model.entity.Chat;
 import com.chat.matheus.chatnotification.model.entity.User;
+import com.chat.matheus.chatnotification.util.HttpConnector;
+import com.chat.matheus.chatnotification.util.JsonDateDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +33,7 @@ public class ChatsActivity extends AppCompatActivity {
 
     User user;
     ListView listLayout;
-    ArrayAdapter<Chat> adapterChat;
+    AdapterChat adapterChat;
     Map<Integer, Chat> mapChats;
 
     @Override
@@ -48,8 +46,8 @@ public class ChatsActivity extends AppCompatActivity {
         listLayout = findViewById(R.id.listLayout);
 
         try {
-            buscarChats();
-//            buscarChatsORM();
+            buscarChatsORM();
+            atualizarChats();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,32 +60,8 @@ public class ChatsActivity extends AppCompatActivity {
         startActivityForResult(it, 100);
     }
 
-    private void buscarChats() {
-        Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDateDeserializer()).create();
-        String json = gson.toJson(user);
-
-        String jsonDeResposta = HttpConnector.connect(Configuration.SERVER_IP + "/v1/api/chat", json);
-        Chat[] cArray = gson.fromJson(jsonDeResposta, Chat[].class);
-        List<Chat> chats = new ArrayList<>(Arrays.asList(cArray));
-
-        adapterChat = new ArrayAdapter<Chat>(
-                this,
-                android.R.layout.simple_list_item_1,
-                chats
-        );
-
-        listLayout.setAdapter(adapterChat);
-        listLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Chat entry = (Chat) parent.getAdapter().getItem(position);
-                Intent intent = new Intent(ChatsActivity.this, MessageActivity.class);
-                intent.putExtra("chat", entry);
-                intent.putExtra("user", user);
-                startActivity(intent);
-            }
-        });
+    public void atualizar(View v) {
+        atualizarChats();
     }
 
     private void atualizarChats() {
@@ -109,6 +83,7 @@ public class ChatsActivity extends AppCompatActivity {
                     chatDAO.create(c);
                 }
             }
+            buscarChatsORM();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,20 +94,11 @@ public class ChatsActivity extends AppCompatActivity {
         try {
             Dao chatDAO = MyORMLiteHelper.getInstance(this.getApplicationContext()).getChatDao();
 
-            QueryBuilder<Chat, Integer> chatQuery = MyORMLiteHelper.getInstance(this.getApplicationContext()).getChatDao().queryBuilder();
-            QueryBuilder<UserChat, Integer> userChatQuery = MyORMLiteHelper.getInstance(this.getApplicationContext()).getUserChatDao().queryBuilder();
-
-            userChatQuery.where().eq("user_id", user.getId());
-            chatQuery.join(userChatQuery);
-
-            List<Chat> chats = chatQuery.query();
+            List<Chat> chats = chatDAO.queryForAll();
+            System.out.println("aqui: " + chats.size());
             this.setChatMap(chats);
 
-            adapterChat = new ArrayAdapter<Chat>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    chats
-            );
+            adapterChat = new AdapterChat(this, new ArrayList<Chat>(chats));
 
             listLayout.setAdapter(adapterChat);
             listLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -160,7 +126,7 @@ public class ChatsActivity extends AppCompatActivity {
         }else if(resultCode == RESULT_OK){
             if(requestCode == 100){
                 Toast.makeText(this, "Chat Adicionado com sucesso!", Toast.LENGTH_SHORT).show();
-                this.buscarChats();
+                atualizarChats();
             }
         }
     }

@@ -21,9 +21,6 @@ public class Chat implements Serializable {
     @DatabaseField
     private Date createdAt;
 
-    @ForeignCollectionField(eager = true)
-    private Collection<UserChat> listaUsers;
-
     private List<User> users;
 
     public Chat() {
@@ -61,14 +58,6 @@ public class Chat implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Collection<UserChat> getListaUsers() {
-        return listaUsers;
-    }
-
-    public void setListaUsers(Collection<UserChat> listaUsers) {
-        this.listaUsers = listaUsers;
     }
 
     @Override

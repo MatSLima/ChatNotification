@@ -30,8 +30,6 @@ public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
 
     //DAO para tabelas e objetos
     Dao<Chat, Integer> daoChat;
-    Dao<Message, Integer> daoMessage;
-    Dao<UserChat, Integer> daoUserChat;
 
     public MyORMLiteHelper(Context c){
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
@@ -50,8 +48,6 @@ public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Chat.class);
-            TableUtils.createTable(connectionSource, Message.class);
-            TableUtils.createTable(connectionSource, UserChat.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,8 +57,6 @@ public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i1) {
         try {
             TableUtils.dropTable(connectionSource, Chat.class, true);
-            TableUtils.dropTable(connectionSource, Message.class, true);
-            TableUtils.createTable(connectionSource, UserChat.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,18 +71,5 @@ public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
         return daoChat;
     }
 
-    public Dao<Message, Integer> getMessageDao() throws SQLException {
-        if(daoMessage==null){
-            daoMessage = getDao(Message.class);
-        }
-        return daoMessage;
-    }
-
-    public Dao<UserChat, Integer> getUserChatDao() throws SQLException {
-        if(daoUserChat==null){
-            daoUserChat = getDao(UserChat.class);
-        }
-        return daoUserChat;
-    }
 
 }

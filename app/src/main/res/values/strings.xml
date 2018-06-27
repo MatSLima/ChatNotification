@@ -3,6 +3,7 @@
     <string name="chats">Minhas conversas</string>
     <string name="title_activity_user">UserActivity</string>
     <string name="save">Salvar</string>
+    <string name="updateChat">Atualizar Chat</string>
     <string name="login">Login</string>
     <string name="password">Senha</string>
     <string name="confirmPassword">Confirme sua senha</string>
